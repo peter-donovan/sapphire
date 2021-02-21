@@ -1,4 +1,4 @@
-### Sapphire Global ###
+### Sapphire Server / Backend ###
 
 ## Node.js
 # Dependencies
@@ -6,16 +6,11 @@ node_modules/
 .pnp/
 .pnp.js
 
-# Build output (Production mode)
-**/build/
-**/dist/
-
-# Testing
-coverage/
-
-## VCS
-# Git hooks / Husky
-.husky/_
+## TypeScript
+# Build output
+dist/
+# Incremental build info / cache file
+.ts-build-cache
 
 ## Development Environment
 # Environment variable files
@@ -28,9 +23,6 @@ coverage/
 # Direnv auto-export script
 .envrc
 
-# Persistent data (PostgreSQL)
-pgdata/
-
 # IDEs and editor workspaces
 .idea/
 .vscode/
@@ -40,7 +32,7 @@ spec/
 specs/
 
 ## Deployment
-# docker-compose.yml
+Dockerfile
 
 ## Misc
 # Logs

@@ -1,0 +1,41 @@
+; EditorConfig for Sapphire
+root = true
+
+; Wildcard, matches all files and acts as a default
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = tab
+insert_final_newline = false
+max_line_length = off
+tab_width = 4
+trim_trailing_whitespace = true
+
+; JavaScript and TypeScript files (including JSX)
+[{*.js, *.ts, *.jsx, *.tsx}]
+indent_size = 4
+insert_final_newline = true
+
+; JSON files
+[{*.json, *.rc}]
+indent_style = space
+tab_width = 2
+
+; Stylesheets
+[{*.css, *.sass, *.scss}]
+indent_size = 4
+
+; YAML files
+[{*.yml, *.yaml}]
+indent_style = space
+tab_width = 2
+
+; Shell scripts and `.env` files
+[{*.env, *.sh}]
+tab_width = 2
+
+; Markdown files
+[*.md]
+trim_trailing_whitespace = false
+

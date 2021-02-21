@@ -1,0 +1,16 @@
+@import "./_colors";
+@import "./_typography";
+
+body {
+	background-color: $body-background;
+	color: $body-color;
+	font-family: $font-family-sans-serif;
+	margin: 0;
+	padding: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+code {
+	font-family: $font-family-monospace;
+}

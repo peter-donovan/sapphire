@@ -1,0 +1,55 @@
+module.exports = {
+	env: {
+		es6: true,
+		node: true,
+		jest: true,
+	},
+	extends: [
+		'plugin:@typescript-eslint/recommended',
+		'prettier/@typescript-eslint',
+		'plugin:prettier/recommended',
+		'prettier',
+	],
+	parser: '@typescript-eslint/parser',
+	parserOptions: {
+		ecmaVersion: 2021,
+		project: 'tsconfig.json',
+		sourceType: 'module',
+		tsconfigRootDir: __dirname,
+	},
+	plugins: [
+		'@typescript-eslint/eslint-plugin',
+		'prettier',
+	],
+	rules: {
+		/* ESLint */
+		'consistent-return': 'off',
+		'max-classes-per-file': 'off',
+		'no-console': 'off',
+		'no-debugger': 'warn',
+		'no-duplicate-imports': 'error',
+		'no-empty': 'off',
+		'no-return-await': 'warn',
+		'no-shadow': 'off',
+		'no-unused-expressions': 'warn',
+		'no-unused-vars': 'warn',
+		'no-useless-catch': 'off',
+		'object-shorthand': 'off',
+		'sort-keys': 'off',
+		/* TypeScript */
+		'@typescript-eslint/explicit-function-return-type': 'off',
+		'@typescript-eslint/explicit-member-accessibility': ['error', { accessibility: 'no-public' }],
+		'@typescript-eslint/explicit-module-boundary-types': 'off',
+		'@typescript-eslint/interface-name-prefix': 'off',
+		'@typescript-eslint/no-empty-function': 'off',
+		'@typescript-eslint/no-empty-interface': 'off',
+		'@typescript-eslint/no-explicit-any': 'off',
+		'@typescript-eslint/no-inferrable-types': 'off',
+		'@typescript-eslint/no-non-null-assertion': 'off',
+		'@typescript-eslint/no-var-requires': 'off',
+		'@typescript-eslint/no-unused-vars': ['warn', { args: 'none' }],
+		'@typescript-eslint/require-await': 'off',
+		/* Prettier */
+		'prettier/prettier': 'warn',
+	},
+};

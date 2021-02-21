@@ -1,0 +1,32 @@
+version: "3.9"
+
+networks:
+  sapphire:
+    external: false
+
+volumes:
+  pgdata: {}
+
+services:
+  db:
+    image: "library/postgres:12.2-alpine"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    networks:
+      - sapphire
+    restart: always
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+  # Redis cache / session storage
+  redis:
+    image: "redis:6.0.10"
+    ports:
+      - "6379:6379"
+    networks:
+      - sapphire
+    restart: always

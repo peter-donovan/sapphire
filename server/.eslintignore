@@ -1,0 +1,6 @@
+.idea/
+.vscode/
+.eslintrc
+.eslintrc.js
+dist/
+node_modules/
