@@ -1,9 +1,11 @@
+@import "theme/colors";
+
 .app {
 	text-align: center;
 }
 
 .header {
-	background-color: #282c34;
+	background-color: $body-background;
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;

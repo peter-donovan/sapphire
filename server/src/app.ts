@@ -8,9 +8,11 @@ import http from 'http';
 import { Socket } from 'net';
 import ws, { Server as WebSocketServer } from 'ws';
 
+import { httpConfig, webSocketConfig } from './config';
+
 // TODO: move environment variable settings to the `config` directory
-const host: string = process.env.HOST ?? 'localhost';
-const port: number = +(process.env.PORT ?? 3400);
+const host: string = httpConfig.host;
+const port: number = httpConfig.port;
 
 // Create Express application instance
 const app: Express = express();
@@ -30,10 +32,7 @@ const server = http.createServer(app);
 
 // Create WebSocket server instance and wrap the HTTP Server
 const wss: WebSocketServer = new ws.Server({
-	clientTracking: true,
-	maxPayload: 32 * 1024,
-	server: server,
-	path: process.env.WEBSOCKET_PATH ?? '/ws',
+	...webSocketConfig,
 });
 
 // handle websocket connections
@@ -43,7 +42,7 @@ wss.on('connection', (socket: Socket, request: Request) => {
 });
 
 // start the server to begin listening for client requests / connections
-server.listen(port, host, () => {
+server.listen({ port, host }, () => {
 	console.log(`Server started.\nHTTP service available at: http://${host}:${port}/`);
 	console.log(`WebSocket service available at: ws://${host}:${port}/ws`);
 });
