@@ -13,10 +13,6 @@ node_modules/
 # Testing
 coverage/
 
-## VCS
-# Git hooks / Husky
-.husky/_
-
 ## Development Environment
 # Environment variable files
 .env

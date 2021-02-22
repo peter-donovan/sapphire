@@ -15,7 +15,8 @@
     "client:start": "yarn --cwd client/ start",
     "server:build": "yarn --cwd server/ build",
     "server:dev": "yarn --cwd server/ dev",
-    "server:start": "yarn --cwd server/ start"
+    "server:start": "yarn --cwd server/ start",
+    "dev": "concurrently 'yarn server:dev' 'wait-on tcp:3400 && yarn client:start'"
   },
   "devDependencies": {
     "concurrently": "^6.0.0",
@@ -30,8 +31,6 @@
     }
   },
   "lint-staged": {
-    "*.{js,ts,jsx,tsx,json,scss}": [
-      "prettier --write"
-    ]
+    "*.{js,ts,jsx,tsx,json,scss}": "prettier --write"
   }
 }
