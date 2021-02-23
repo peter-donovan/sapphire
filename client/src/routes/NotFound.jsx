@@ -5,10 +5,8 @@ const NotFound = () => {
 	const history = useHistory();
 
 	useEffect(() => {
-		console.log('redirectUser called!');
-		const redirectTimeout = setTimeout(() => {
+		setTimeout(() => {
 			history.push('/');
-			clearTimeout(redirectTimeout);
 		}, 3500);
 	}, [history]);
 
