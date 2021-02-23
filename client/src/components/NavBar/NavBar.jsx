@@ -1,27 +1,33 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import { Gem } from '@styled-icons/fa-regular/Gem';
 
-import { colors } from 'theme/variables';
+import { colors, fonts } from 'theme/variables';
 
-// TODO: Move the routes to a `constants` file to keep all magic strings and such in one place
 const NavBar = () => {
 	return (
 		<Nav>
-			<Brand to="/">
+			<Logo to="/">
+				<Gem size="22.5" title="application logo" />
 				<h1>Sapphire</h1>
-			</Brand>
-			<NavItems>
-				<li>
-					<NavLink to="/">Home</NavLink>
-				</li>
-				<li>
+			</Logo>
+			<HamburgerIcon>
+				<span />
+				<span />
+				<span />
+			</HamburgerIcon>
+			<Menu role="navigation">
+				<MenuItem>
 					<NavLink to="/chat">Chat</NavLink>
-				</li>
-				<li>
-					<NavLink to="/404-route-test">404 Route</NavLink>
-				</li>
-			</NavItems>
+				</MenuItem>
+				<MenuItem>
+					<NavLink to="/register">Register</NavLink>
+				</MenuItem>
+				<MenuItem>
+					<NavLink to="/login">Login</NavLink>
+				</MenuItem>
+			</Menu>
 		</Nav>
 	);
 };
@@ -33,17 +39,43 @@ const Nav = styled.nav`
 	background-image: linear-gradient(${colors.brand.secondary}, ${colors.brand.dark});
 	border-bottom: 2px solid ${colors.element.border};
 	display: flex;
-	flex-direction: row;
-	height: 3.5rem;
-	padding: 1.25rem;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0 1.25rem;
 `;
 
-const NavItems = styled.ul`
+const Logo = styled(Link)`
 	align-items: center;
 	display: flex;
-	flex-direction: row;
+	text-decoration: none;
+
+	svg {
+		color: ${colors.brand.primary};
+		margin: 0.35rem 0.25rem 0 0;
+	}
+
+	h1 {
+		font-weight: ${fonts.weight.black};
+		padding: 0.5rem 0;
+		text-transform: uppercase;
+	}
 `;
 
-const Brand = styled(Link)`
-	text-decoration: none;
+const HamburgerIcon = styled.div`
+	span {
+		color: white;
+		height: 2px;
+		width: 1rem;
+	}
+`;
+
+const Menu = styled.ul`
+	display: flex;
+	flex-direction: row;
+	margin: 0;
+	padding: 0;
+`;
+
+const MenuItem = styled.li`
+	font-size: 0.95em;
 `;

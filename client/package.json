@@ -30,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "@styled-icons/fa-regular": "^10.26.0",
     "luxon": "^1.26.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",

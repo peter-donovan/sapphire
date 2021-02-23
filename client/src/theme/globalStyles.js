@@ -3,7 +3,7 @@ import { colors, fonts } from './variables';
 
 /*
  * DarkStar Systems
- *      v0.7.1
+ *      v0.7.2
  * Sapphire Theme
  */
 
@@ -24,7 +24,7 @@ export const GlobalStyles = createGlobalStyle`
 	}
 
 	body {
-		background-color: ${colors.brand.dark};
+		background-color: ${colors.element.black};
 		color: ${colors.element.body};
 		font-family: ${fonts.family.main};
 		font-size: ${fonts.baseSize};
