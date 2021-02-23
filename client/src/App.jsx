@@ -1,17 +1,22 @@
-import styles from 'styles/App.module.scss';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { GlobalStyles } from 'theme';
+
+import Home from 'routes/Home';
 
 function App() {
 	return (
-		<div className={styles.app}>
-			<header className={styles.header}>
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a className={styles.link} href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-					Learn React
-				</a>
-			</header>
-		</div>
+		<>
+			<GlobalStyles />
+			<BrowserRouter>
+				<main>
+					<Switch>
+						<Route exact path="/">
+							<Home />
+						</Route>
+					</Switch>
+				</main>
+			</BrowserRouter>
+		</>
 	);
 }
 
