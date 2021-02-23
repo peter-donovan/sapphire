@@ -1,17 +1,22 @@
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { GlobalStyles } from 'theme';
+import styled from 'styled-components';
 
-// Routes / Pages
+import { colors } from 'theme/variables';
+
+// Routes
 import Home from 'routes/Home';
 import Chat from 'routes/Chat';
 import NotFound from 'routes/NotFound';
 
-function App() {
+import { NavigationBar } from 'components/NavigationBar';
+
+const App = () => {
 	return (
-		<>
-			<GlobalStyles />
+		<React.Fragment>
 			<BrowserRouter>
-				<main>
+				<NavigationBar />
+				<MainContainer>
 					<Switch>
 						<Route exact path="/">
 							<Home />
@@ -23,10 +28,16 @@ function App() {
 							<NotFound />
 						</Route>
 					</Switch>
-				</main>
+				</MainContainer>
 			</BrowserRouter>
-		</>
+		</React.Fragment>
 	);
-}
+};
 
 export default App;
+
+const MainContainer = styled.main`
+	background-color: ${colors.brand.secondary};
+	margin-top: 3.5rem;
+	height: calc(100vh - 3.5rem);
+`;

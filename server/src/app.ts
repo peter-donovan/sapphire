@@ -23,6 +23,7 @@ const bootstrap = async () => {
 	applyMiddleware(app);
 
 	// attach routes to the Express app instance
+	// initControllers(app);
 	// app.use('/auth', authController);
 	// app.use('/users', usersController);
 	// app.use('/messages', messagesController);
@@ -30,7 +31,7 @@ const bootstrap = async () => {
 	// Create http server instance and pass Express app context
 	const server = http.createServer(app);
 
-	// Create WebSocket server instance and wrap the HTTP Server
+	// Create a separate WebSocket server instance
 	const wss = new ws.Server({ ...config.ws });
 
 	// handle websocket connections
