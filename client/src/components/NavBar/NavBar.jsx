@@ -104,16 +104,16 @@ const HamburgerIcon = styled.div`
 `;
 
 const Menu = styled.ul`
-	align-items: center;
 	display: flex;
-	justify-content: space-between;
+	flex-direction: row;
 	margin: 0;
+	padding: 0;
 	position: relative;
 
 	@media (max-width: ${breakpoints.md}) {
-		flex-direction: row;
+		flex-direction: column;
 		justify-content: space-around;
-		height: ${({ open }) => (open ? '3rem' : '0px')};
+		height: ${({ open }) => (open ? '20vh' : '0px')};
 		overflow: hidden;
 		transition: height 300ms ease-in;
 		width: 100%;
@@ -125,8 +125,8 @@ const MenuItem = styled.li`
 
 	a {
 		color: ${colors.brand.light};
-		padding: 1rem 2rem;
-		text-align: center;
+		margin: 2rem;
+		text-align: left;
 		text-decoration: none;
 		text-transform: uppercase;
 		text-shadow: 2px 2px 1px ${colors.element.black};

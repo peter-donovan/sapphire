@@ -6,7 +6,7 @@ import { Socket } from 'net';
 import ws from 'ws';
 
 import { config } from './config';
-import { applyMiddleware } from './middleware/apply-middleware';
+import { applyMiddleware } from './middleware';
 
 // TODO: move environment variable settings to the `config` directory
 const host: string = config.app.host;
@@ -15,9 +15,11 @@ const port: number = config.app.port;
 // Create Express application instance
 const app: Express = express();
 
-const bootstrap = async () => {
+async function bootstrap() {
 	// Connect to database
 	// await databaseConnection();
+
+	console.log(`Bootstrapping server. Mode: ${process.env.NODE_ENV}`);
 
 	// Apply Express application middleware
 	applyMiddleware(app);
@@ -45,7 +47,7 @@ const bootstrap = async () => {
 		console.log(`Server started.\nHTTP service available at: http://${host}:${port}/`);
 		console.log(`WebSocket service available at: ws://${host}:${port}/ws`);
 	});
-};
+}
 
 bootstrap().catch((err) => {
 	console.error(err);
