@@ -15,13 +15,6 @@
         "tabWidth": 2,
         "useTabs": false
       }
-    },
-    {
-      "files": ["*.scss"],
-      "options": {
-        "parser": "scss",
-        "singleQuote": false
-      }
     }
   ]
 }
