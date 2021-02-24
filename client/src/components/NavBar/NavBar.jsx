@@ -20,13 +20,13 @@ const NavBar = () => {
 				<span />
 			</HamburgerIcon>
 			<Menu role="navigation" open={open}>
-				<MenuItem>
+				<MenuItem onClick={() => setOpen(!open)}>
 					<NavLink to="/chat">Chat</NavLink>
 				</MenuItem>
-				<MenuItem>
+				<MenuItem onClick={() => setOpen(!open)}>
 					<NavLink to="/register">Register</NavLink>
 				</MenuItem>
-				<MenuItem>
+				<MenuItem onClick={() => setOpen(!open)}>
 					<NavLink to="/login">Login</NavLink>
 				</MenuItem>
 			</Menu>
@@ -57,6 +57,7 @@ const Logo = styled(Link)`
 	}
 
 	h1 {
+		color: ${colors.white};
 		font-weight: ${fonts.weight.black};
 		padding: 0.5rem 0;
 		text-shadow: 2px 2px 2px ${colors.element.black};
@@ -92,7 +93,7 @@ const HamburgerIcon = styled.div`
 		}
 
 		&:nth-child(2) {
-			//transform: ${({ open }) => (open ? 'translateX(100%)' : 'translateX(0)')};
+			transform: ${({ open }) => (open ? 'translateX(100%)' : 'translateX(0)')};
 			opacity: ${({ open }) => (open ? 0 : 1)};
 		}
 
