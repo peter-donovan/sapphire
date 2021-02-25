@@ -28,8 +28,8 @@ ormconfig.env
 .envrc
 
 ## Development Environment
-# Persistent data (PostgreSQL)
-data/
+# Persistent sapphire_data (PostgreSQL)
+sapphire_data/
 
 # IDEs and editor workspaces
 .idea/
