@@ -28,6 +28,7 @@ export class User extends BaseEntity {
 	@UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
 	updatedAt: Date;
 
+	// Database hooks
 	@BeforeInsert()
 	@BeforeUpdate()
 	async hashPassword(): Promise<void> {

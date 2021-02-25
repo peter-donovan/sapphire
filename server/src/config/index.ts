@@ -2,6 +2,7 @@ import 'dotenv/config';
 
 // Application / Server
 interface AppConfig {
+	environment: string;
 	host: string;
 	port: number;
 }
@@ -33,9 +34,9 @@ interface Config {
 	ws: WebSocketConfig;
 }
 
-// FIXME: Come up with an easier-to-use and more robust solution for getting config values
 export const config: Config = {
 	app: {
+		environment: process.env.NODE_ENV ?? 'development',
 		host: process.env.HOST ?? 'localhost',
 		port: +(process.env.PORT ?? 3400),
 	},

@@ -9,10 +9,11 @@ node_modules/
 ## TypeScript
 # Build output
 dist/
-# Incremental build info / cache file
-.ts-build-cache
 
-## Development Environment
+## Environment Variables
+# Typeorm environment variables (development-only)
+ormconfig.env
+
 # Environment variable files
 .env
 .env.local
@@ -23,6 +24,7 @@ dist/
 # Direnv auto-export script
 .envrc
 
+## Development Environment
 # IDEs and editor workspaces
 .idea/
 .vscode/

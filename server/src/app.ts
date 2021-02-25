@@ -6,6 +6,7 @@ import { Socket } from 'net';
 import ws from 'ws';
 
 import { config } from './config';
+import { createConnectionPool } from './database/connection';
 import { applyMiddleware } from './middleware';
 
 // TODO: move environment variable settings to the `config` directory
@@ -17,9 +18,9 @@ const app: Express = express();
 
 async function bootstrap() {
 	// Connect to database
-	// await databaseConnection();
+	await createConnectionPool();
 
-	console.log(`Bootstrapping server. Mode: ${process.env.NODE_ENV}`);
+	console.log(`Bootstrapping server. Starting in ${config.app.environment.toUpperCase()} mode.`);
 
 	// Apply Express application middleware
 	applyMiddleware(app);
