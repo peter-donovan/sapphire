@@ -1,1 +1,2 @@
-export * as entities from './entities';
+export { User } from './entities';
+export * from './connection';

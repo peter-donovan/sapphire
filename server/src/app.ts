@@ -6,7 +6,8 @@ import { Socket } from 'net';
 import ws from 'ws';
 
 import { config } from './config';
-import { createConnectionPool } from './database/connection';
+import { createConnectionPool } from './database';
+import { Log } from './logger';
 import { applyMiddleware } from './middleware';
 
 // TODO: move environment variable settings to the `config` directory
@@ -20,7 +21,7 @@ async function bootstrap() {
 	// Connect to database
 	await createConnectionPool();
 
-	console.log(`Bootstrapping server. Starting in ${config.app.environment.toUpperCase()} mode.`);
+	Log.info(`Bootstrapping server. Starting in ${config.app.environment.toUpperCase()} mode.`);
 
 	// Apply Express application middleware
 	applyMiddleware(app);
@@ -39,18 +40,18 @@ async function bootstrap() {
 
 	// handle websocket connections
 	wss.on('connection', (socket: Socket, request: Request) => {
-		console.log('New connection from Socket:', request.socket.address());
+		Log.info('New connection from Socket:', request.socket.address());
 		socket.emit('message', 'Welcome to Sapphire');
 	});
 
 	// start the server to begin listening for client requests / connections
 	server.listen({ port, host }, () => {
-		console.log(`Server started.\nHTTP service available at: http://${host}:${port}/`);
-		console.log(`WebSocket service available at: ws://${host}:${port}/ws`);
+		Log.info(`HTTP service available at: http://${host}:${port}/`);
+		Log.info(`WebSocket service available at: ws://${host}:${port}/ws`);
 	});
 }
 
 bootstrap().catch((err) => {
-	console.error(err);
+	Log.error(err);
 	process.exit(1);
 });

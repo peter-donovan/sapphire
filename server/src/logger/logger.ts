@@ -1,11 +1,14 @@
 import { Logger, LoggerWithoutCallSite } from 'tslog';
 
-const loggerName: string = 'S-Logger';
-const verboseLoggerName: string = 'S-Logger (verbose)';
+const loggerName: string = 'Logger';
+const verboseLoggerName: string = 'Logger [VERBOSE]';
 
 export function createLogger(verbose: boolean): Logger | LoggerWithoutCallSite {
 	if (verbose) {
-		return new Logger({ name: verboseLoggerName });
+		return new Logger({
+			name: verboseLoggerName,
+			printLogMessageInNewLine: true,
+		});
 	}
 
 	return new LoggerWithoutCallSite({ name: loggerName });
