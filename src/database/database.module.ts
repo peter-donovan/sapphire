@@ -8,12 +8,13 @@ import { getConnectionOptions } from 'typeorm';
 		TypeOrmModule.forRootAsync({
 			imports: [ConfigModule],
 			inject: [ConfigService],
-			useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => ({
+			useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => {
 				// Override default options via the `source` object within the `Object.assign` call
-				...Object.assign(await getConnectionOptions(), {
+				const connectionOptions = await getConnectionOptions();
+				return Object.assign(connectionOptions, {
 					synchronize: configService.get('NODE_ENV') !== 'production',
-				}),
-			}),
+				});
+			},
 		}),
 	],
 })

@@ -1,14 +1,22 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { CreatePostDto, UpdatePostDto } from 'src/posts/dto';
-import { Post } from './post.interface';
+import { Post } from 'src/posts/post.entity';
+import { Repository } from 'typeorm';
+import { IPost } from './post.interface';
 
 @Injectable()
 export class PostsService {
-	private lastPostId: number = 0;
-	private posts: Post[] = [];
+	constructor(
+		@InjectRepository(Post)
+		private readonly postsRepository: Repository<Post>
+	) {}
 
-	createPost(post: CreatePostDto): Post {
-		const newPost: Post = {
+	private lastPostId: number = 0;
+	private posts: IPost[] = [];
+
+	createPost(post: CreatePostDto): IPost {
+		const newPost = {
 			id: ++this.lastPostId,
 			...post,
 		};
@@ -16,12 +24,12 @@ export class PostsService {
 		return newPost;
 	}
 
-	findAllPosts(): Post[] {
+	findAllPosts(): IPost[] {
 		return this.posts;
 	}
 
-	findPostById(id: number): Post {
-		const post: Post = this.posts.find((p) => p.id === id);
+	findPostById(id: number): IPost {
+		const post = this.posts.find((p) => p.id === id);
 		if (!post) {
 			throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
 		}
@@ -29,7 +37,7 @@ export class PostsService {
 		return post;
 	}
 
-	updatePostById(id: number, post: UpdatePostDto): Post {
+	updatePostById(id: number, post: UpdatePostDto): IPost {
 		const index: number = this.posts.findIndex((p) => p.id === id);
 		if (index > -1) {
 			this.posts[index] = post;
