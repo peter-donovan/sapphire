@@ -13,7 +13,10 @@ node_modules/
 # Testing
 coverage/
 
-## Development Environment
+## Environment Variables
+# Typeorm environment variables (development-only)
+ormconfig.env
+
 # Environment variable files
 .env
 .env.local
@@ -24,6 +27,7 @@ coverage/
 # Direnv auto-export script
 .envrc
 
+## Development Environment
 # Persistent data (PostgreSQL)
 pgdata/
 
@@ -34,9 +38,6 @@ pgdata/
 # Specification (for internal-use only)
 spec/
 specs/
-
-## Deployment
-# docker-compose.yml
 
 ## Misc
 # Logs
