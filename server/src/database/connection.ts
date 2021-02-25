@@ -12,12 +12,12 @@ const defaultOptions: PostgresConnectionOptions = {
 	url: databaseUrl,
 };
 
+/**
+ * createConnectionPool Creates a new connection pool from the application environment variables.
+ */
 export async function createConnectionPool() {
 	try {
 		const connectionOptions: ConnectionOptions = await getConnectionOptions();
-		Log.info('Connection options found:', connectionOptions);
-
-		// Create a new database connection
 		const connection: Connection = await createConnection(connectionOptions);
 		if (connection.isConnected) {
 			Log.info('Successfully connected to database and initialized connection pool.');
