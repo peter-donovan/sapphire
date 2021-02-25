@@ -29,7 +29,7 @@ ormconfig.env
 
 ## Development Environment
 # Persistent data (PostgreSQL)
-pgdata/
+data/
 
 # IDEs and editor workspaces
 .idea/

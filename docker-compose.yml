@@ -1,14 +1,8 @@
 version: "3.9"
 
-networks:
-  sapphire:
-    external: false
-
-volumes:
-  pgdata: {}
-
 services:
-  db:
+  database:
+    container_name: "database"
     image: "library/postgres:12.2-alpine"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -20,7 +14,22 @@ services:
       - sapphire
     restart: always
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: pgadmin
+    depends_on:
+      - database
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    image: "dpage/pgadmin4"
+    networks:
+      - sapphire
+    ports:
+      - "8080:80"
+    volumes:
+      - ./data/pgadmin:/root/.pgadmin
 
   # Redis cache / session storage
   redis:
@@ -30,3 +39,10 @@ services:
     networks:
       - sapphire
     restart: always
+
+networks:
+  sapphire:
+    driver: bridge
+
+volumes:
+  data: {}
