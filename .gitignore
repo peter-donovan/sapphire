@@ -28,8 +28,10 @@ ormconfig.env
 .envrc
 
 ## Development Environment
-# Persistent sapphire_data (PostgreSQL)
-sapphire_data/
+# PostgreSQL persistent data
+pgdata/
+# Extensions / SQL files to run before starting container
+pgsql/
 
 # IDEs and editor workspaces
 .idea/

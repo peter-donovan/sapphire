@@ -14,9 +14,13 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "noImplicitAny": true,
+    "moduleResolution": "Node",
     "removeComments": true,
     "sourceMap": true,
 
     "baseUrl": "src",
+    "paths": {
+      "@sapphire/*": ["./*"]
+    }
   }
 }

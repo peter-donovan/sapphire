@@ -2,7 +2,6 @@ version: "3.9"
 
 services:
   database:
-    container_name: database
     image: "library/postgres:13.2"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -10,38 +9,18 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
-#    networks:
-#      - sapphire
     restart: always
     volumes:
-      - ./sapphire_data/pgdata:/var/lib/postgresql/sapphire_data
-      - ./sapphire_data/sql/load-extensions.sql:/docker-entrypoint-initdb.d/load-extensions.sql
-
-  pgadmin:
-    container_name: pgadmin
-    depends_on:
-      - database
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-    image: "dpage/pgadmin4"
-#    networks:
-#      - sapphire
-    ports:
-      - "8080:80"
-    volumes:
-      - ./sapphire_data/pgdata:/root/pgdata
+      - ./pgdata:/var/lib/postgresql/data
+      - ./pgsql/load-extensions.sql:/docker-entrypoint-initdb.d/load-extensions.sql
 
   # Redis cache / session storage
   redis:
-    container_name: redis
+    image: "redis:6.0.10"
     depends_on:
       - database
-    image: "redis:6.0.10"
     ports:
       - "6379:6379"
-#    networks:
-#      - sapphire
     restart: always
 
 networks:
@@ -50,4 +29,4 @@ networks:
       name: sapphire
 
 volumes:
-  sapphire_data: {}
+  pgdata: {}

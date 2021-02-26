@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 
-import { CreatePostDto, UpdatePostDto } from 'posts/dto';
-import { PostsService } from 'posts/posts.service';
+import { CreatePostDto, UpdatePostDto } from '@sapphire/posts/dto';
+import { PostsService } from '@sapphire/posts/posts.service';
 
 @Controller('posts')
 export class PostsController {
@@ -13,12 +13,12 @@ export class PostsController {
 	}
 
 	@Get()
-	getAllPosts() {
+	async getAllPosts() {
 		return this.postsService.findAllPosts();
 	}
 
 	@Get(':id')
-	getPostById(@Param('id') id: string) {
+	async getPostById(@Param('id') id: string) {
 		return this.postsService.findPostById(+id);
 	}
 
@@ -29,6 +29,6 @@ export class PostsController {
 
 	@Delete(':id')
 	async deletePost(@Param('id') id: string) {
-		this.postsService.deletePostById(+id);
+		return this.postsService.deletePostById(+id);
 	}
 }

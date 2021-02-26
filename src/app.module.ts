@@ -2,8 +2,8 @@ import Joi from '@hapi/joi';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
-import { DatabaseModule } from 'database/database.module';
-import { PostsModule } from 'posts/posts.module';
+import { DatabaseModule } from '@sapphire/database/database.module';
+import { PostsModule } from '@sapphire/posts/posts.module';
 
 @Module({
 	imports: [
