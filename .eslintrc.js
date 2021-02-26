@@ -15,10 +15,11 @@ module.exports = {
 	plugins: ['@typescript-eslint', 'prettier'],
 	ignorePatterns: ['.eslintrc.js'],
 	rules: {
+		/* Disabled base rules to eliminate incorrect error reporting */
+		'no-return-await': 'off',
 		/* TypeScript */
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/explicit-module-boundary-types': 'off',
-		'@typescript-eslint/interface-name-prefix': 'off',
 		'@typescript-eslint/no-empty-function': 'off',
 		'@typescript-eslint/no-empty-interface': 'off',
 		'@typescript-eslint/no-explicit-any': 'off',
@@ -26,7 +27,7 @@ module.exports = {
 		'@typescript-eslint/no-non-null-assertion': 'off',
 		'@typescript-eslint/no-var-requires': 'off',
 		'@typescript-eslint/no-unused-vars': ['warn', { args: 'none' }],
-		'@typescript-eslint/require-await': 'off',
+		'@typescript-eslint/return-await': 'warn',
 		/* Prettier */
 		'prettier/prettier': 'warn',
 	},
