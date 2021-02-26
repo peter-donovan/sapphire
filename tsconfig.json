@@ -17,6 +17,6 @@
     "removeComments": true,
     "sourceMap": true,
 
-    "baseUrl": "./"
+    "baseUrl": "src",
   }
 }

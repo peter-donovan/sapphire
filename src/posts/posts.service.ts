@@ -1,16 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreatePostDto, UpdatePostDto } from 'src/posts/dto';
-import { Post } from 'src/posts/post.entity';
 import { Repository } from 'typeorm';
-import { IPost } from './post.interface';
+
+import { CreatePostDto, UpdatePostDto } from 'posts/dto';
+import { Post } from 'posts/post.entity';
+import { IPost } from 'posts/post.interface';
 
 @Injectable()
 export class PostsService {
-	constructor(
-		@InjectRepository(Post)
-		private readonly postsRepository: Repository<Post>
-	) {}
+	constructor(@InjectRepository(Post) private readonly postsRepository: Repository<Post>) {}
 
 	private lastPostId: number = 0;
 	private posts: IPost[] = [];
