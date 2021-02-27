@@ -26,9 +26,8 @@ export class PostsService {
 	async findPostById(id: number): Promise<Post> {
 		const post: Post | undefined = await this.postsRepository.findOne(id);
 		if (!post) {
-			throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
+			throw new HttpException('Post not found.', HttpStatus.NOT_FOUND);
 		}
-
 		return post;
 	}
 
@@ -38,14 +37,13 @@ export class PostsService {
 		if (!updatedPost) {
 			throw new HttpException('Post not found.', HttpStatus.NOT_FOUND);
 		}
-
 		return updatedPost;
 	}
 
 	async deletePostById(id: number) {
 		const result: DeleteResult = await this.postsRepository.delete(id);
 		if (!result.affected) {
-			throw new HttpException('Post not found', HttpStatus.NOT_FOUND);
+			throw new HttpException('Post not found.', HttpStatus.NOT_FOUND);
 		}
 	}
 }
