@@ -1,6 +1,6 @@
-import Joi from '@hapi/joi';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import Joi from 'joi';
 
 import { DatabaseModule } from '@sapphire/database/database.module';
 import { PostsModule } from '@sapphire/posts/posts.module';

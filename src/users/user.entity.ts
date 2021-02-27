@@ -21,6 +21,10 @@ export class User {
 	updatedAt: Date;
 
 	// References
-	@OneToMany(() => Post, (posts) => posts.user, { cascade: true, eager: true })
-	posts: Post[];
+	@OneToMany(() => Post, (posts) => posts.user, {
+		cascade: true,
+		eager: true,
+		nullable: true,
+	})
+	posts?: Post[];
 }
