@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 
 import { DatabaseModule } from '@sapphire/database/database.module';
 import { PostsModule } from '@sapphire/posts/posts.module';
+import { UsersModule } from '@sapphire/users/users.module';
 
 @Module({
 	imports: [
@@ -23,6 +24,7 @@ import { PostsModule } from '@sapphire/posts/posts.module';
 		}),
 		DatabaseModule,
 		PostsModule,
+		UsersModule,
 	],
 	controllers: [],
 	providers: [],
