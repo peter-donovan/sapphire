@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
 
+import { AuthService } from '@sapphire/auth/auth.service';
 import { DatabaseModule } from '@sapphire/database/database.module';
 import { PostsModule } from '@sapphire/posts/posts.module';
 import { UsersModule } from '@sapphire/users/users.module';
@@ -27,6 +28,6 @@ import { UsersModule } from '@sapphire/users/users.module';
 		UsersModule,
 	],
 	controllers: [],
-	providers: [],
+	providers: [AuthService],
 })
 export class AppModule {}
