@@ -25,8 +25,7 @@ services:
 
 networks:
   default:
-    external:
-      name: sapphire
+    name: sapphire
 
 volumes:
   pgdata: {}

@@ -4,3 +4,4 @@
 .eslintrc.js
 dist/
 node_modules/
+client/
