@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
 
-import { AuthService } from '@sapphire/auth/auth.service';
-import { DatabaseModule } from '@sapphire/database/database.module';
-import { PostsModule } from '@sapphire/posts/posts.module';
-import { UsersModule } from '@sapphire/users/users.module';
-import { AuthModule } from './auth/auth.module';
+import { AuthService } from 'auth/auth.service';
+import { AuthModule } from 'auth/auth.module';
+import { DatabaseModule } from 'database/database.module';
+import { PostsModule } from 'posts/posts.module';
+import { UsersModule } from 'users/users.module';
 
 @Module({
 	imports: [

@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 
-import { CreatePostDto, UpdatePostDto } from '@sapphire/posts/dto';
-import { Post } from '@sapphire/posts/post.entity';
+import { CreatePostDto, UpdatePostDto } from 'posts/dto';
+import { Post } from 'posts/post.entity';
 
 @Injectable()
 export class PostsService {

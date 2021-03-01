@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Post } from '@sapphire/posts/post.entity';
-import { PostsController } from '@sapphire/posts/posts.controller';
-import { PostsService } from '@sapphire/posts/posts.service';
+import { Post } from 'posts/post.entity';
+import { PostsController } from 'posts/posts.controller';
+import { PostsService } from 'posts/posts.service';
 
 @Module({
 	imports: [TypeOrmModule.forFeature([Post])],

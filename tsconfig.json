@@ -19,8 +19,5 @@
     "sourceMap": true,
 
     "baseUrl": "src",
-    "paths": {
-      "@sapphire/*": ["./*"]
-    }
   }
 }

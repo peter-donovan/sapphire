@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-import { Post } from '@sapphire/posts/post.entity';
+import { Post } from 'posts/post.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -13,7 +13,7 @@ export class User {
 	@Column()
 	password: string;
 
-	// Timestamps
+	// Timestamps (omitted from queries by default)
 	@CreateDateColumn({ name: 'created_at', select: false })
 	createdAt: Date;
 
@@ -23,7 +23,6 @@ export class User {
 	// References
 	@OneToMany(() => Post, (posts) => posts.user, {
 		cascade: true,
-		eager: true,
 		nullable: true,
 	})
 	posts?: Post[];

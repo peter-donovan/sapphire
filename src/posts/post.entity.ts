@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { JoinColumn } from 'typeorm';
 
-import { User } from '@sapphire/users/user.entity';
+import { User } from 'users/user.entity';
 
 @Entity({ name: 'posts' })
 export class Post {
@@ -22,7 +22,7 @@ export class Post {
 	updatedAt: Date;
 
 	// References
-	@ManyToOne(() => User, (user) => user.posts)
+	@ManyToOne(() => User, (user: User) => user.posts)
 	@JoinColumn({ name: 'user_id' })
 	user: User;
 }

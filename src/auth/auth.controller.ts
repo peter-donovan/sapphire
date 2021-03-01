@@ -1,9 +1,9 @@
 import { Body, Controller, HttpCode, Post, Req, UseGuards } from '@nestjs/common';
 
-import { AuthService } from '@sapphire/auth/auth.service';
-import { LocalAuthGuard } from '@sapphire/auth/guards';
-import { AuthRequest } from '@sapphire/internal';
-import { CreateUserDto } from '@sapphire/users/dto';
+import { AuthService } from 'auth/auth.service';
+import { LocalAuthGuard } from 'auth/guards';
+import { AuthRequest } from 'internal/types';
+import { CreateUserDto } from 'users/dto';
 
 @Controller('auth')
 export class AuthController {

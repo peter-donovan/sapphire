@@ -1,10 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import argon2, { argon2id } from 'argon2';
 
-import { ErrorCodes, SafeUser } from '@sapphire/internal';
-import { CreateUserDto } from '@sapphire/users/dto';
-import { User } from '@sapphire/users/user.entity';
-import { UsersService } from '@sapphire/users/users.service';
+import { ErrorCodes } from 'internal/errors';
+import { SafeUser } from 'internal/types';
+import { CreateUserDto } from 'users/dto';
+import { User } from 'users/user.entity';
+import { UsersService } from 'users/users.service';
 
 @Injectable()
 export class AuthService {

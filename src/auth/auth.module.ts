@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 
-import { AuthController } from '@sapphire/auth/auth.controller';
-import { AuthService } from '@sapphire/auth/auth.service';
-import { LocalStrategy } from '@sapphire/auth/strategies/local.strategy';
-import { UsersModule } from '@sapphire/users/users.module';
+import { AuthController } from 'auth/auth.controller';
+import { AuthService } from 'auth/auth.service';
+import { LocalStrategy } from 'auth/strategies/local.strategy';
+import { UsersModule } from 'users/users.module';
 
 @Module({
 	imports: [UsersModule, PassportModule],
