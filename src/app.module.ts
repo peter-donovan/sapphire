@@ -6,6 +6,7 @@ import { AuthService } from '@sapphire/auth/auth.service';
 import { DatabaseModule } from '@sapphire/database/database.module';
 import { PostsModule } from '@sapphire/posts/posts.module';
 import { UsersModule } from '@sapphire/users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
 	imports: [
@@ -26,6 +27,7 @@ import { UsersModule } from '@sapphire/users/users.module';
 		DatabaseModule,
 		PostsModule,
 		UsersModule,
+		AuthModule,
 	],
 	controllers: [],
 	providers: [AuthService],

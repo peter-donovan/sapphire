@@ -1,3 +1,3 @@
-export enum Constants {
+export enum ErrorCodes {
 	UniqueViolationError = '23505',
 }

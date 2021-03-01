@@ -1,9 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import argon2, { argon2id } from 'argon2';
 
-import { Constants } from '@sapphire/internal/constants';
-import { RegisterUserDto } from '@sapphire/users/dto';
-import { LoginUserDto } from '@sapphire/users/dto/login-user.dto';
+import { ErrorCodes, SafeUser } from '@sapphire/internal';
+import { CreateUserDto } from '@sapphire/users/dto';
 import { User } from '@sapphire/users/user.entity';
 import { UsersService } from '@sapphire/users/users.service';
 
@@ -11,42 +10,75 @@ import { UsersService } from '@sapphire/users/users.service';
 export class AuthService {
 	constructor(private readonly usersService: UsersService) {}
 
-	async registerUser({ username, password }: RegisterUserDto): Promise<Omit<User, 'password'>> {
-		const hashedPassword: string = await argon2.hash(password, { type: argon2id });
+	/**
+	 * registerUser Attempts to register and create a new user. Upon success, the new user is saved
+	 * to the database. A payload is returned containing the new user data with the password field omitted.
+	 * If the username supplied is already in use, a Conflict (309) error is thrown.
+	 * If something goes wrong for another reason, a generic Internal Server Error (500) is thrown.
+	 * @param createUserDto Represents the username and password input from a user.
+	 * @return User entity with sensitive properties omitted.
+	 */
+	async registerUser(createUserDto: CreateUserDto): Promise<SafeUser> {
+		const hashedPassword: string = await argon2.hash(createUserDto.password, {
+			// argon2id variant is used as it is best suited for password hashing
+			type: argon2id,
+		});
 		try {
-			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			// const { password, ...props } = user;
-			return await this.usersService.createUser({
-				username,
+			const user: User = await this.usersService.createUser({
+				...createUserDto,
 				password: hashedPassword,
 			});
+			return this.stripSensitiveData(user);
 		} catch (error) {
-			if (error?.code === Constants.UniqueViolationError) {
+			// PostgreSQL will throw an error if the unique constraint is violated.
+			if (error?.code === ErrorCodes.UniqueViolationError) {
 				throw new HttpException('User with that username already exists.', HttpStatus.CONFLICT);
 			}
 
-			throw new HttpException(
-				'Something went wrong during the registration process.',
-				HttpStatus.INTERNAL_SERVER_ERROR
-			);
+			throw new HttpException('An unexpected error occurred.', HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	async loginUser({ username, password }: LoginUserDto): Promise<Omit<User, 'password'>> {
+	/**
+	 * validateUser Validates a user by attempting to fetch a user from the database that matches the username
+	 * and password supplied by the user. If the username and password match the existing username / password hash
+	 * (credential pair) stored in the database, a payload containing the authenticated user data is returned.
+	 * If no user is found with the provided username, a Not Found (404) error is thrown.
+	 * If a matching user is found but the password does not match, a Bad Request error (400) is thrown.
+	 * @param username Username input from a user.
+	 * @param password Password input from a user.
+	 * @return User entity with sensitive properties omitted.
+	 */
+	async validateUser(username: string, password: string): Promise<SafeUser> {
 		try {
-			const user: User = await this.usersService.findUserByUsername(username);
-			await this.verifyPassword(password, user.password);
-			// user.password = undefined;
-			return user;
+			const user: User = await this.usersService.findOneByUsername(username);
+			await this.verifyPassword(user.password, password);
+			return this.stripSensitiveData(user);
 		} catch (error) {
 			throw new HttpException('Invalid credentials.', HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	async verifyPassword(password: string, hashedPassword: string): Promise<void> {
+	/**
+	 * verifyPassword Compares a password input with a password hash stored in the database.
+	 * @param hashedPassword Existing password hash stored in the database.
+	 * @param password Password input from user.
+	 */
+	async verifyPassword(hashedPassword: string, password: string): Promise<void> {
 		const isMatch: boolean = await argon2.verify(hashedPassword, password);
 		if (!isMatch) {
 			throw new HttpException('Invalid credentials.', HttpStatus.BAD_REQUEST);
 		}
+	}
+
+	/**
+	 * stripSensitiveData Removes any sensitive data from a User object and returns the resulting object.
+	 * @param user User entity.
+	 * @return User entity with sensitive properties omitted.
+	 */
+	stripSensitiveData(user: User): SafeUser {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { password, ...data } = user;
+		return data;
 	}
 }
