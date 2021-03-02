@@ -1,15 +1,22 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import argon2, { argon2id } from 'argon2';
+import { Request } from 'express';
 
 import { ErrorCodes } from 'internal/errors';
-import { SafeUser } from 'internal/types';
+import { SafeUser, TokenPayload } from 'internal/types';
 import { CreateUserDto } from 'users/dto';
 import { User } from 'users/user.entity';
 import { UsersService } from 'users/users.service';
 
 @Injectable()
 export class AuthService {
-	constructor(private readonly usersService: UsersService) {}
+	constructor(
+		private readonly configService: ConfigService,
+		private readonly jwtService: JwtService,
+		private readonly usersService: UsersService
+	) {}
 
 	/**
 	 * registerUser Attempts to register and create a new user. Upon success, the new user is saved
@@ -73,7 +80,18 @@ export class AuthService {
 	}
 
 	/**
-	 * stripSensitiveData Removes any sensitive data from a User object and returns the resulting object.
+	 * generateNewToken Generates a new token containing a User's ID, username and an issuedAt (Date).
+	 * @param userId
+	 */
+	generateNewToken({ id, username }: SafeUser): string {
+		const currentTime = new Date();
+		const payload: TokenPayload = { sub: id, username, issuedAt: currentTime };
+		const token: string = this.jwtService.sign(payload);
+		return `Token=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('JWT_EXPIRY_TIME')}`;
+	}
+
+	/**
+	 * stripSensitiveData Removes any sensitive fields from a User object and returns a SafeUser payload.
 	 * @param user User entity.
 	 * @return User entity with sensitive properties omitted.
 	 */

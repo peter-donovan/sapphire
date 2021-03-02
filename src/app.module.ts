@@ -15,6 +15,11 @@ import { UsersModule } from 'users/users.module';
 				// Application
 				NODE_ENV: Joi.string(),
 				PORT: Joi.number(),
+				// JSON Web Tokens
+				JWT_EXPIRY_TIME: Joi.string().required(),
+				JWT_ISSUER: Joi.string().required(),
+				JWT_KEY_ID: Joi.string().required(),
+				JWT_SECRET: Joi.string().required(),
 				// Redis cache
 				REDIS_HOST: Joi.string().required(),
 				REDIS_PORT: Joi.number().required(),
@@ -30,6 +35,6 @@ import { UsersModule } from 'users/users.module';
 		AuthModule,
 	],
 	controllers: [],
-	providers: [AuthService],
+	providers: [],
 })
 export class AppModule {}
