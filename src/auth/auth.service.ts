@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import argon2, { argon2id } from 'argon2';
-import { Request } from 'express';
+import { CookieOptions } from 'express';
 
 import { ErrorCodes } from 'internal/errors';
 import { SafeUser, TokenPayload } from 'internal/types';
@@ -12,6 +12,11 @@ import { UsersService } from 'users/users.service';
 
 @Injectable()
 export class AuthService {
+	cookieOptions: CookieOptions = {
+		httpOnly: true,
+		maxAge: this.configService.get('JWT_EXPIRY_TIME'),
+	};
+
 	constructor(
 		private readonly configService: ConfigService,
 		private readonly jwtService: JwtService,
@@ -36,7 +41,7 @@ export class AuthService {
 				...createUserDto,
 				password: hashedPassword,
 			});
-			return this.stripSensitiveData(user);
+			return this.stripSensitiveFields(user);
 		} catch (error) {
 			// PostgreSQL will throw an error if the unique constraint is violated.
 			if (error?.code === ErrorCodes.UniqueViolationError) {
@@ -61,7 +66,7 @@ export class AuthService {
 		try {
 			const user: User = await this.usersService.findOneByUsername(username);
 			await this.verifyPassword(user.password, password);
-			return this.stripSensitiveData(user);
+			return this.stripSensitiveFields(user);
 		} catch (error) {
 			throw new HttpException('Invalid credentials.', HttpStatus.BAD_REQUEST);
 		}
@@ -80,22 +85,23 @@ export class AuthService {
 	}
 
 	/**
-	 * generateNewToken Generates a new token containing a User's ID, username and an issuedAt (Date).
-	 * @param userId
+	 * generateNewToken Generates a new access token (JWT) and inserts it into an HTTP-only cookie.
+	 * @param user User entity stripped of any sensitive fields.
 	 */
-	generateNewToken({ id, username }: SafeUser): string {
-		const currentTime = new Date();
-		const payload: TokenPayload = { sub: id, username, issuedAt: currentTime };
-		const token: string = this.jwtService.sign(payload);
-		return `Token=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('JWT_EXPIRY_TIME')}`;
+	generateNewToken(user: SafeUser): string {
+		const payload: TokenPayload = {
+			id: user.id,
+			sub: user.username,
+		};
+		return this.jwtService.sign(payload);
 	}
 
 	/**
-	 * stripSensitiveData Removes any sensitive fields from a User object and returns a SafeUser payload.
+	 * stripSensitiveFields Removes sensitive fields from a User object and returns a SafeUser payload.
 	 * @param user User entity.
 	 * @return User entity with sensitive properties omitted.
 	 */
-	stripSensitiveData(user: User): SafeUser {
+	stripSensitiveFields(user: User): SafeUser {
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { password, ...data } = user;
 		return data;

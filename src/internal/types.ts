@@ -6,9 +6,8 @@ export type SafeUser = Omit<User, 'password'>;
 
 // TokenPayload is an object that describes the shape of a JWT payload sent as a cookie.
 export interface TokenPayload {
+	id: string;
 	sub: string;
-	username: string;
-	issuedAt: Date;
 }
 
 // AuthRequest is an Express Request object with an added user property.

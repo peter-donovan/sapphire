@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
 
-import { AuthService } from 'auth/auth.service';
 import { AuthModule } from 'auth/auth.module';
 import { DatabaseModule } from 'database/database.module';
 import { PostsModule } from 'posts/posts.module';
@@ -16,7 +15,7 @@ import { UsersModule } from 'users/users.module';
 				NODE_ENV: Joi.string(),
 				PORT: Joi.number(),
 				// JSON Web Tokens
-				JWT_EXPIRY_TIME: Joi.string().required(),
+				JWT_EXPIRY_TIME: Joi.number().required(),
 				JWT_ISSUER: Joi.string().required(),
 				JWT_KEY_ID: Joi.string().required(),
 				JWT_SECRET: Joi.string().required(),
