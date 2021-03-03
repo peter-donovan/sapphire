@@ -9,12 +9,12 @@
   "trailingComma": "es5",
   "useTabs": true,
   "overrides": [
-	{
-	  "files": ["*.json", ".*rc"],
-	  "options": {
-		"tabWidth": 2,
-		"useTabs": false
-	  }
-	}
+    {
+      "files": ["*.json", ".*rc"],
+      "options": {
+        "tabWidth": 2,
+        "useTabs": false
+      }
+    }
   ]
 }
