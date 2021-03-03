@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SafeUser } from 'internal/types';
 import { Repository } from 'typeorm';
 
+import { SafeUser } from 'internal/types';
 import { CreateUserDto } from 'users/dto';
 import { User } from 'users/user.entity';
 

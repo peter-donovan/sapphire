@@ -13,7 +13,7 @@ tab_width = 4
 trim_trailing_whitespace = true
 
 ; JavaScript and TypeScript files (including JSX)
-[{*.js, *.ts, *.jsx, *.tsx}]
+[{*.js, *.ts, *.jsx, *.tsx, *.vue}]
 indent_size = 4
 insert_final_newline = true
 
