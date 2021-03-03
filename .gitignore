@@ -24,6 +24,9 @@ coverage/
 .envrc
 
 ## Development Environment
+# Vue client (experimental)
+sapphire-client
+
 # PostgreSQL persistent data
 pgdata/
 # Extensions / SQL files to run before starting container

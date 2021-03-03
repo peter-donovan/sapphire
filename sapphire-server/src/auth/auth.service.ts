@@ -14,7 +14,7 @@ import { UsersService } from 'users/users.service';
 export class AuthService {
 	cookieOptions: CookieOptions = {
 		httpOnly: true,
-		maxAge: +this.configService.get('JWT_EXPIRY_TIME'),
+		maxAge: this.configService.get('JWT_EXPIRY_TIME') * 1000,
 	};
 
 	constructor(
