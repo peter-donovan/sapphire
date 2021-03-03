@@ -1,5 +1,6 @@
 {
   "name": "sapphire-browser-client",
+  "description": "Client application for Sapphire, a chat application powered by WebSockets.",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -30,15 +31,15 @@
     ]
   },
   "dependencies": {
-    "@styled-icons/fa-regular": "^10.26.0",
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
     "luxon": "^1.26.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-is": "^17.0.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.2",
-    "styled-components": "^5.2.1"
+    "react-scripts": "4.0.2"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",

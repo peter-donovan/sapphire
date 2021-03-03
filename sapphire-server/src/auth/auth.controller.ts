@@ -1,8 +1,8 @@
-import { Body, Controller, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, HttpStatus, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 
 import { AuthService } from 'auth/auth.service';
-import { LocalAuthGuard } from 'auth/guards';
+import { JwtAuthGuard, LocalAuthGuard } from 'auth/guards';
 import { AuthRequest } from 'internal/types';
 import { CreateUserDto } from 'users/dto';
 
@@ -21,5 +21,12 @@ export class AuthController {
 		const token: string = this.authService.generateNewToken(user);
 		response.cookie('access_token', token, this.authService.cookieOptions);
 		return response.status(HttpStatus.OK).send(user);
+	}
+
+	@UseGuards(JwtAuthGuard)
+	@Delete('logout')
+	async logout(@Req() request: AuthRequest, @Res() response: Response) {
+		response.clearCookie('access_token', this.authService.cookieOptions);
+		return response.sendStatus(HttpStatus.OK);
 	}
 }

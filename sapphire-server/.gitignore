@@ -1,4 +1,4 @@
-### Global Gitignore Config ###
+### Sapphire Server ###
 
 ## Node.js
 # Dependencies
@@ -6,12 +6,15 @@ node_modules/
 .pnp/
 .pnp.js
 
-# Build output (Production mode)
-build/
+# Build output
 dist/
 
 # Testing
 coverage/
+
+## Environment Variables
+# Typeorm environment variables (development-only)
+ormconfig.env
 
 # Environment variable files
 .env

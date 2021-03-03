@@ -2,7 +2,6 @@
 .vscode/
 .eslintrc
 .eslintrc.js
-build/
 dist/
 node_modules/
-
+client/
