@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, HttpCode, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Post, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 
 import { AuthService } from 'auth/auth.service';
 import { JwtAuthGuard, LocalAuthGuard } from 'auth/guards';
-import { AuthRequest } from 'internal/types';
+import { CurrentUser } from 'internal/decorators/current-user.decorator';
+import { SafeUser } from 'internal/types';
 import { CreateUserDto } from 'users/dto';
 
 @Controller('auth')
@@ -18,24 +19,22 @@ export class AuthController {
 	@HttpCode(200)
 	@UseGuards(LocalAuthGuard)
 	@Post('login')
-	async login(@Req() { user }: AuthRequest, @Res({ passthrough: true }) response: Response) {
+	async login(@CurrentUser() user: SafeUser, @Res({ passthrough: true }) response: Response) {
 		const token: string = this.authService.generateNewToken(user);
-		// NOTE: Consider moving this logic to the service layer
-		response.cookie('access_token', token, this.authService.cookieOptions);
+		response.cookie(this.authService.accessTokenName, token, this.authService.cookieOptions);
 		return user;
 	}
 
 	@UseGuards(JwtAuthGuard)
 	@Get('self')
-	getCurrentUser(@Req() { user }: AuthRequest) {
+	getCurrentUser(@CurrentUser() user: SafeUser) {
 		return user;
 	}
 
 	@UseGuards(JwtAuthGuard)
 	@Delete('logout')
-	async logout(@Req() request: AuthRequest, @Res({ passthrough: true }) response: Response) {
-		// NOTE: Consider moving this logic to the service layer
-		response.clearCookie('access_token', this.authService.cookieOptions);
+	async logout(@Res({ passthrough: true }) response: Response) {
+		response.clearCookie(this.authService.accessTokenName, this.authService.cookieOptions);
 		return true;
 	}
 }

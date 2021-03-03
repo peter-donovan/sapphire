@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 
 import { JwtAuthGuard } from 'auth/guards';
+import { CurrentUser } from 'internal/decorators/current-user.decorator';
+import { SafeUser } from 'internal/types';
 import { CreatePostDto, UpdatePostDto } from 'posts/dto';
 import { PostsService } from 'posts/posts.service';
 
@@ -10,8 +12,8 @@ export class PostsController {
 
 	@Post()
 	@UseGuards(JwtAuthGuard)
-	async createPost(@Body() createPostDto: CreatePostDto) {
-		return this.postsService.createPost(createPostDto);
+	async createPost(@CurrentUser() user: SafeUser, @Body() createPostDto: CreatePostDto) {
+		return this.postsService.createPost(user, createPostDto);
 	}
 
 	@Get()

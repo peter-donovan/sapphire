@@ -4,13 +4,17 @@ import { DeleteResult, Repository } from 'typeorm';
 
 import { CreatePostDto, UpdatePostDto } from 'posts/dto';
 import { Post } from 'posts/post.entity';
+import { SafeUser } from 'internal/types';
 
 @Injectable()
 export class PostsService {
 	constructor(@InjectRepository(Post) private readonly postsRepository: Repository<Post>) {}
 
-	async createPost(post: CreatePostDto): Promise<Post> {
-		const newPost: Post = this.postsRepository.create(post);
+	async createPost(user: SafeUser, newPostDto: CreatePostDto): Promise<Post> {
+		const newPost: Post = this.postsRepository.create({
+			...newPostDto,
+			user,
+		});
 		await this.postsRepository.save(newPost);
 		return newPost;
 	}

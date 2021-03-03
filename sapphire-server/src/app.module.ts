@@ -19,6 +19,7 @@ import { UsersModule } from 'users/users.module';
 				JWT_ISSUER: Joi.string().required(),
 				JWT_KEY_ID: Joi.string().required(),
 				JWT_SECRET: Joi.string().required(),
+				JWT_TOKEN_NAME: Joi.string().required(),
 				// Redis cache
 				REDIS_HOST: Joi.string().required(),
 				REDIS_PORT: Joi.number().required(),
