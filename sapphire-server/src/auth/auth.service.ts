@@ -13,7 +13,6 @@ import { UsersService } from 'users/users.service';
 @Injectable()
 export class AuthService {
 	accessTokenName: string = this.configService.get('JWT_TOKEN_NAME');
-
 	cookieOptions: CookieOptions = {
 		httpOnly: true,
 		maxAge: this.configService.get('JWT_EXPIRY_TIME') * 1000,

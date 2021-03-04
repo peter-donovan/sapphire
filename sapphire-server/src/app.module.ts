@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_FILTER } from '@nestjs/core';
 import Joi from 'joi';
 
 import { AuthModule } from 'auth/auth.module';
 import { DatabaseModule } from 'database/database.module';
+import { GlobalExceptionLogger } from 'internal/filters';
 import { PostsModule } from 'posts/posts.module';
 import { UsersModule } from 'users/users.module';
 
@@ -37,6 +39,11 @@ import { UsersModule } from 'users/users.module';
 		AuthModule,
 	],
 	controllers: [],
-	providers: [],
+	providers: [
+		{
+			provide: APP_FILTER,
+			useClass: GlobalExceptionLogger,
+		},
+	],
 })
 export class AppModule {}

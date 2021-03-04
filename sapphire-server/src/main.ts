@@ -1,4 +1,4 @@
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import compression from 'compression';
@@ -19,7 +19,9 @@ async function bootstrap() {
 	app.use(compression()); // Disable if using a reverse proxy such as Nginx
 	app.use(cookieParser());
 	app.use(helmet());
+
 	app.setGlobalPrefix(globalRoutePrefix);
+	app.useGlobalPipes(new ValidationPipe());
 
 	await app.listen(port);
 
