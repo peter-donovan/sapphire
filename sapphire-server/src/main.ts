@@ -1,7 +1,9 @@
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 
 import { AppModule } from 'app.module';
 
@@ -14,7 +16,9 @@ async function bootstrap() {
 	const globalRoutePrefix: string = configService.get('GLOBAL_ROUTE_PREFIX');
 
 	// Initialize global middlewares
+	app.use(compression()); // Disable if using a reverse proxy such as Nginx
 	app.use(cookieParser());
+	app.use(helmet());
 	app.setGlobalPrefix(globalRoutePrefix);
 
 	await app.listen(port);
