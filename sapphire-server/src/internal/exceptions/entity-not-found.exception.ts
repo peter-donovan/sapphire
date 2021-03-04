@@ -1,13 +1,13 @@
-import { NotFoundException } from '@nestjs/common';
+import { Logger, NotFoundException } from '@nestjs/common';
 
 export class PostNotFoundException extends NotFoundException {
-	constructor(id: number) {
-		super(`Post with ID ${id} not found.`);
+	constructor() {
+		super(`No Post could be found from your request.`);
 	}
 }
 
 export class UserNotFoundException extends NotFoundException {
-	constructor(id: string) {
-		super(`User with ID ${id} not found.`);
+	constructor() {
+		super(`No User could be found from your request.`);
 	}
 }

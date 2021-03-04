@@ -1,7 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { UserNotFoundException } from 'internal/exceptions';
 import { SafeUser } from 'internal/types';
 import { CreateUserDto } from 'users/dto';
 import { User } from 'users/user.entity';
@@ -13,7 +14,7 @@ export class UsersService {
 	async findSafeUserById(id: string): Promise<SafeUser> {
 		const user: User = await this.usersRepository.findOne(id);
 		if (!user) {
-			throw new HttpException(`User not found.`, HttpStatus.NOT_FOUND);
+			throw new UserNotFoundException();
 		}
 
 		delete user.password;
@@ -24,7 +25,7 @@ export class UsersService {
 	async findOneByUsername(username: string): Promise<User> {
 		const user: User | undefined = await this.usersRepository.findOne({ username });
 		if (!user) {
-			throw new HttpException(`User not found.`, HttpStatus.NOT_FOUND);
+			throw new UserNotFoundException();
 		}
 		return user;
 	}
