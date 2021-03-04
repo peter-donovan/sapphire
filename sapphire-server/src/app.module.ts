@@ -11,9 +11,11 @@ import { UsersModule } from 'users/users.module';
 	imports: [
 		ConfigModule.forRoot({
 			validationSchema: Joi.object({
-				// Application
+				// Environment override
 				NODE_ENV: Joi.string(),
-				PORT: Joi.number(),
+				// Application
+				GLOBAL_ROUTE_PREFIX: Joi.string().required(),
+				PORT: Joi.number().required(),
 				// JSON Web Tokens
 				JWT_EXPIRY_TIME: Joi.number().required(),
 				JWT_ISSUER: Joi.string().required(),
