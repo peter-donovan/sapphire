@@ -1,0 +1,8 @@
+.idea/
+.vscode/
+.eslintrc
+.eslintrc.js
+node_modules/
+package.json
+spec/
+src/theme/

@@ -24,8 +24,8 @@ coverage/
 .envrc
 
 ## Development Environment
-# Vue client (experimental)
-sapphire-client
+# Old React-based client
+sapphire-ui/
 
 # PostgreSQL persistent data
 pgdata/
