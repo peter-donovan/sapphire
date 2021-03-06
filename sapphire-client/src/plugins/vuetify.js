@@ -20,7 +20,7 @@ export default new Vuetify({
 				info: colors.blue.lighten3,
 				warning: colors.yellow.lighten1,
 				error: colors.red.lighten1,
-				// anchor: colors.teal.accent3,
+				anchor: colors.teal.accent3,
 			},
 		},
 	},

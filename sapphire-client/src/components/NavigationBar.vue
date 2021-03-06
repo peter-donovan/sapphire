@@ -1,22 +1,34 @@
 <template>
-	<v-app-bar class="px-3" app>
-		<v-toolbar-title>
-			<router-link to="/">
-				<h2 class="font-weight-black text-uppercase white--text">
-					<v-icon class="icon" color="blue lighten-3" large>mdi-diamond-outline</v-icon>
-					Sapphire
-				</h2>
-			</router-link>
-		</v-toolbar-title>
-		<v-spacer />
-		<v-app-bar-nav-icon class="mdi-diamond-outline"> </v-app-bar-nav-icon>
-		<v-navigation-drawer app> </v-navigation-drawer>
-		<v-toolbar-items class="align-center flex justify-end" v-for="(link, name) in routes" :key="name">
-			<router-link class="text-uppercase" :to="link">
-				{{ name }}
-			</router-link>
-		</v-toolbar-items>
-	</v-app-bar>
+	<div>
+		<v-app-bar class="px-3" clipped-left app>
+			<v-toolbar-title>
+				<router-link to="/">
+					<h2 class="font-weight-black text-uppercase white--text">
+						Sapphire
+					</h2>
+				</router-link>
+			</v-toolbar-title>
+			<v-spacer />
+			<!-- Navigation Drawer Button (trigger) -->
+			<v-app-bar-nav-icon class="hidden-lg-and-up" x-large @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+			<!-- Navbar Links -->
+			<v-toolbar-items class="hidden-md-and-down" v-for="(item, index) in items" :key="index" :to="item.path">
+				<template>
+					<v-btn class="text-uppercase" :to="item.path" link exact text>{{ item.name }}</v-btn>
+				</template>
+			</v-toolbar-items>
+		</v-app-bar>
+		<!-- Navigation Drawer / Sidebar -->
+		<v-navigation-drawer class="hidden-lg-and-up" v-model="drawer" app>
+			<v-list nav>
+				<v-list-item v-for="(item, index) in items" :key="index" :to="item.path" link exact>
+					<v-list-item-content class="text-uppercase">
+						<v-list-item-title>{{ item.name }}</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+			</v-list>
+		</v-navigation-drawer>
+	</div>
 </template>
 
 <script>
@@ -24,12 +36,14 @@ export default {
 	name: 'NavigationBar',
 	data() {
 		return {
-			routes: {
-				home: '/',
-				chat: '/chat',
-				register: '/register',
-				login: '/login',
-			},
+			// clipped: true,
+			drawer: false,
+			items: [
+				{ name: 'Home', path: '/' },
+				{ name: 'Chat', path: '/chat' },
+				{ name: 'Register', path: '/register' },
+				{ name: 'Login', path: '/login' },
+			],
 		};
 	},
 };
