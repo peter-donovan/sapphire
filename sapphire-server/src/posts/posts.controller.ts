@@ -2,9 +2,9 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nes
 
 import { JwtAuthGuard } from 'auth/guards';
 import { CurrentUser } from 'internal/decorators/current-user.decorator';
-import { SafeUser } from 'internal/types';
 import { CreatePostDto, UpdatePostDto } from 'posts/dto';
 import { PostsService } from 'posts/posts.service';
+import { User } from 'users/user.entity';
 
 @Controller('posts')
 export class PostsController {
@@ -12,7 +12,7 @@ export class PostsController {
 
 	@Post()
 	@UseGuards(JwtAuthGuard)
-	async createPost(@CurrentUser() user: SafeUser, @Body() createPostDto: CreatePostDto) {
+	async createPost(@CurrentUser() user: User, @Body() createPostDto: CreatePostDto) {
 		return this.postsService.createPost(user, createPostDto);
 	}
 

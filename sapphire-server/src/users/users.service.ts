@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { UserNotFoundException } from 'internal/exceptions';
-import { SafeUser } from 'internal/types';
 import { CreateUserDto } from 'users/dto';
 import { User } from 'users/user.entity';
 
@@ -11,7 +10,7 @@ import { User } from 'users/user.entity';
 export class UsersService {
 	constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>) {}
 
-	async findSafeUserById(id: string): Promise<SafeUser> {
+	async findOneById(id: string): Promise<User> {
 		const user: User = await this.usersRepository.findOne(id);
 		if (!user) {
 			throw new UserNotFoundException();

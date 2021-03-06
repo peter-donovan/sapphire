@@ -5,13 +5,13 @@ import { DeleteResult, Repository } from 'typeorm';
 import { PostNotFoundException } from 'internal/exceptions';
 import { CreatePostDto, UpdatePostDto } from 'posts/dto';
 import { Post } from 'posts/post.entity';
-import { SafeUser } from 'internal/types';
+import { User } from 'users/user.entity';
 
 @Injectable()
 export class PostsService {
 	constructor(@InjectRepository(Post) private readonly postsRepository: Repository<Post>) {}
 
-	async createPost(user: SafeUser, newPostDto: CreatePostDto): Promise<Post> {
+	async createPost(user: User, newPostDto: CreatePostDto): Promise<Post> {
 		const newPost: Post = this.postsRepository.create({
 			...newPostDto,
 			user,

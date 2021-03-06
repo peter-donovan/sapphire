@@ -3,9 +3,7 @@
 		<v-app-bar class="px-3" clipped-left app>
 			<v-toolbar-title>
 				<router-link to="/">
-					<h2 class="font-weight-black text-uppercase white--text">
-						Sapphire
-					</h2>
+					<h2 class="font-weight-black text-uppercase white--text">Sapphire</h2>
 				</router-link>
 			</v-toolbar-title>
 			<v-spacer />

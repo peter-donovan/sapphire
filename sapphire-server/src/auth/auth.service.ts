@@ -5,7 +5,7 @@ import argon2, { argon2id } from 'argon2';
 import { CookieOptions } from 'express';
 
 import { ErrorCodes } from 'internal/errors';
-import { SafeUser, TokenPayload } from 'internal/types';
+import { TokenPayload } from 'internal/types';
 import { CreateUserDto } from 'users/dto';
 import { User } from 'users/user.entity';
 import { UsersService } from 'users/users.service';
@@ -32,17 +32,16 @@ export class AuthService {
 	 * @param createUserDto Represents the username and password input from a user.
 	 * @return User entity with sensitive properties omitted.
 	 */
-	async registerUser(createUserDto: CreateUserDto): Promise<SafeUser> {
+	async registerUser(createUserDto: CreateUserDto): Promise<User> {
 		const hashedPassword: string = await argon2.hash(createUserDto.password, {
 			// argon2id variant is used as it is best suited for password hashing
 			type: argon2id,
 		});
 		try {
-			const user: User = await this.usersService.createUser({
+			return await this.usersService.createUser({
 				...createUserDto,
 				password: hashedPassword,
 			});
-			return this.stripSensitiveFields(user);
 		} catch (error) {
 			// PostgreSQL will throw an error if the unique constraint is violated.
 			if (error?.code === ErrorCodes.UniqueViolationError) {
@@ -63,11 +62,11 @@ export class AuthService {
 	 * @param password Password input from a user.
 	 * @return User entity with sensitive properties omitted.
 	 */
-	async validateUser(username: string, password: string): Promise<SafeUser> {
+	async validateUser(username: string, password: string): Promise<User> {
 		try {
 			const user: User = await this.usersService.findOneByUsername(username);
 			await this.verifyPassword(user.password, password);
-			return this.stripSensitiveFields(user);
+			return user;
 		} catch (error) {
 			throw new HttpException('Invalid credentials.', HttpStatus.BAD_REQUEST);
 		}
@@ -89,22 +88,11 @@ export class AuthService {
 	 * generateNewToken Generates a new access token (JWT) and inserts it into an HTTP-only cookie.
 	 * @param user User entity stripped of any sensitive fields.
 	 */
-	generateNewToken(user: SafeUser): string {
+	generateNewToken(user: User): string {
 		const payload: TokenPayload = {
 			id: user.id,
 			sub: user.username,
 		};
 		return this.jwtService.sign(payload);
-	}
-
-	/**
-	 * stripSensitiveFields Removes sensitive fields from a User object and returns a SafeUser payload.
-	 * @param user User entity.
-	 * @return User entity with sensitive properties omitted.
-	 */
-	stripSensitiveFields(user: User): SafeUser {
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const { password, ...data } = user;
-		return data;
 	}
 }
