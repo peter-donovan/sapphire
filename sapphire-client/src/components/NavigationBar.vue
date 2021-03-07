@@ -1,23 +1,6 @@
 <template>
 	<div>
-		<v-app-bar class="px-3" dense clipped-left app>
-			<v-toolbar-title>
-				<router-link to="/">
-					<h2 class="font-weight-black text-uppercase white--text">Sapphire</h2>
-				</router-link>
-			</v-toolbar-title>
-			<v-spacer />
-			<!-- Navigation Drawer Button (trigger) -->
-			<v-app-bar-nav-icon class="hidden-lg-and-up" x-large @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-			<!-- Navbar Links -->
-			<v-toolbar-items class="hidden-md-and-down" v-for="(item, index) in items" :key="index" :to="item.path">
-				<v-container>
-					<v-btn small class="text-uppercase" :to="item.path" link exact text>{{ item.name }}</v-btn>
-				</v-container>
-			</v-toolbar-items>
-		</v-app-bar>
-		<!-- Navigation Drawer / Sidebar -->
-		<v-navigation-drawer class="hidden-lg-and-up" v-model="drawer" clipped app>
+		<v-navigation-drawer app clipped v-model="drawer">
 			<v-list nav>
 				<v-list-item v-for="(item, index) in items" :key="index" :to="item.path" link exact>
 					<v-list-item-content class="text-uppercase">
@@ -26,6 +9,20 @@
 				</v-list-item>
 			</v-list>
 		</v-navigation-drawer>
+		<v-app-bar app clipped-left>
+			<v-app-bar-nav-icon x-large @click.stop="drawer = !drawer" />
+			<v-toolbar-title>
+				<router-link class="text-decoration-none" to="/">
+					<h2 class="font-weight-black text-uppercase white--text">Sapphire</h2>
+				</router-link>
+			</v-toolbar-title>
+			<v-spacer />
+			<v-toolbar-items class="hidden-md-and-down" v-for="(item, index) in items" :key="index" :to="item.path">
+				<v-container v-if="item.path !== '/'">
+					<v-btn exact-active-class="btn-active" :to="item.path" exact text>{{ item.name }}</v-btn>
+				</v-container>
+			</v-toolbar-items>
+		</v-app-bar>
 	</div>
 </template>
 
@@ -34,11 +31,10 @@ export default {
 	name: 'NavigationBar',
 	data() {
 		return {
-			// clipped: true,
+			buttonState: this.$route.matched,
 			drawer: false,
 			items: [
 				{ name: 'Home', path: '/' },
-				{ name: 'Chat', path: '/chat' },
 				{ name: 'Register', path: '/register' },
 				{ name: 'Login', path: '/login' },
 			],
@@ -48,11 +44,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.spacer {
-	flex-grow: 2;
-}
-
-a {
-	text-decoration: none;
+.container--debug {
+	border: 1px solid red;
 }
 </style>
