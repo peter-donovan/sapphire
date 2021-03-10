@@ -1,0 +1,64 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended",
+    "prettier/react"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "jsx-a11y",
+    "prettier"
+  ],
+  "rules": {
+    /* ESLint */
+    "consistent-return": "off",
+    "max-classes-per-file": "off",
+    "no-console": "off",
+    "no-duplicate-imports": "error",
+    "no-empty": "off",
+    "no-return-await": "warn",
+    "no-shadow": "off",
+    "no-unused-expressions": "warn",
+    "no-unused-vars": "warn",
+    "no-useless-catch": "off",
+    "object-shorthand": "warn",
+    "sort-keys": "off",
+    /* JSX-a11y - Accessibility */
+    "jsx-a11y/label-has-associated-control": "warn",
+    /* Prettier ruleset */
+    "prettier/prettier": "warn",
+    /* React */
+    "react/forbid-prop-types": "warn",
+    // "react/jsx-props-no-spreading": [ "error", { "custom": "ignore" } ],
+    "react/jsx-uses-react": "warn",
+    "react/jsx-uses-vars": "warn",
+    "react/no-unescaped-entities": "off",
+    "react/prefer-stateless-function": "off",
+    "react/prop-types": "warn",
+    "react/require-default-props": "off",
+    "react/react-in-jsx-scope": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
