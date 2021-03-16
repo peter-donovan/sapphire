@@ -1,17 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
 
 import App from './App';
-import { GlobalStyles } from 'theme';
+import { theme } from 'theme';
 
 ReactDOM.render(
 	<React.StrictMode>
-		<GlobalStyles>
+		<ThemeProvider theme={theme}>
+			<CssBaseline />
 			<Router>
 				<App />
 			</Router>
-		</GlobalStyles>
+		</ThemeProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

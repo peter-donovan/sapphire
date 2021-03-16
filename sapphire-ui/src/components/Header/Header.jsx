@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { AppBar, makeStyles, Toolbar, Typography, useTheme } from '@material-ui/core';
+import React from 'react';
+import { AppBar, makeStyles, Toolbar, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 	header: {
-		background: `linear-gradient(135deg, #212121, #0D47A1)`,
+		background: `linear-gradient(-135deg, #0d47a1, #09243e)`,
 	},
 	logo: {
 		fontWeight: 900,
+		textShadow: '2px 2px 4px black',
 	},
 }));
 
