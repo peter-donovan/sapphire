@@ -9,7 +9,7 @@ const theme = createMuiTheme({
 	palette: {
 		// type: 'dark',
 		primary: {
-			main: blue['900'], // #0d47a1
+			main: ['#0f3052', '#0d47a1'], // #0d47a1 || blue[900]
 		},
 		secondary: {
 			main: deepPurple['700'], // #512da8

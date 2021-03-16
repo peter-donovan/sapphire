@@ -1,4 +1,4 @@
-import { ClassSerializerInterceptor, Logger, ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory, Reflector } from '@nestjs/core';
 import compression from 'compression';
@@ -7,8 +7,8 @@ import helmet from 'helmet';
 
 import { AppModule } from 'app.module';
 
-async function bootstrap() {
-	const app = await NestFactory.create(AppModule);
+async function bootstrap(): Promise<void> {
+	const app: INestApplication = await NestFactory.create(AppModule);
 
 	const configService: ConfigService = app.get(ConfigService);
 
@@ -26,7 +26,7 @@ async function bootstrap() {
 
 	await app.listen(port);
 
-	Logger.log(`Started: http://localhost:${port}/${globalRoutePrefix}`, 'HTTP Service');
+	Logger.log(`Started at http://localhost:${port}/${globalRoutePrefix}`, 'HTTP Service');
 }
 
 bootstrap().catch((err) => {

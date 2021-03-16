@@ -5,6 +5,8 @@ import Home from 'pages/Home';
 import Chat from 'pages/Chat';
 import NotFound from 'pages/NotFound';
 
+const routeMetadata = [{}];
+
 const Routes = () => {
 	return (
 		<Switch>
